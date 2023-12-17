@@ -23,31 +23,38 @@ async function main(){
         //spliting the line by replacement is this nessecary?
         var lineArr: string[] = gameSplit[1].split(";");
         //looping through each replacement
-        lineArr.forEach(function(item){
+        for(let item of lineArr){
             //looping through each number string combo
             var commaSplit: string[] = item.split(",");
-            console.log(commaSplit);
+            //console.log(commaSplit);
             commaSplit.forEach(function(iter){
                 var temp: string = iter.trim();
-                switch (temp[1]){
+                var tempA: string[] = temp.split(" ");
+                switch (tempA[1]){
                     case "red":
-                        rt = parseInt(temp[0]);
+                        if(parseInt(tempA[0]) > rt)
+                            rt = parseInt(tempA[0]);
                         break;
                     case "green":
-                        gt = parseInt(temp[0]);
+                        if(parseInt(tempA[0]) > gt)
+                            gt = parseInt(tempA[0]);
                         break;
                     case "blue":
-                        bt = parseInt(temp[0]);
+                        if(parseInt(tempA[0]) > bt)
+                            bt = parseInt(tempA[0]);
                         break;
                 }
             });
-            if(rt > red || gt > green || bt > blue){
-                //Cannot use continue because JS doesn't support breaks and continue inside forEach functions
-                sum -= game;
-            }
-            rt = 0, bt = 0, gt = 0;
+            
+        }
+        console.log("Game: ", game, "RT: ", rt, "GT: ", gt, "BT: ", bt);
+        if(rt > red || gt > green || bt > blue){
+            
+        } else {
+            console.log("Is this ever called?");
             sum += game;
-        });
+        }
+        rt = 0; gt = 0; bt = 0;
     }
     console.log(sum);
 
